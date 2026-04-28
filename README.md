@@ -1,3 +1,7 @@
+## 🌐 Live Demo
+👉 Try the app here:  
+https://dubai-coffee-finder-nmdppwn9thht5pqjtkhrmq.streamlit.app/
+
 Dubai Coffee Finder
 Overview
 Dubai Coffee Finder is a Streamlit-based web application that helps users discover coffee spots in Dubai using location filtering, nearby recommendations, maps, and analytics.
