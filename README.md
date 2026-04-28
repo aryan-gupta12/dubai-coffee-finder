@@ -34,11 +34,14 @@ pip install -r requirements.txt
 
 ## 📸 Screenshots
 
+### 📊 Analytics Dashboard
+![Analytics](screenshots/analytics_dashboard.png)
+
+### 🏠 Homepage
+![Homepage](screenshots/homepage.png)
+
+### 🏆 Leaderboard
+![Leaderboard](screenshots/leaderboard.png)
+
 ### 🗺️ Map View
-![Map View](screenshots/map.png)
-
-### 🔍 Filters
-![Filters](screenshots/filters.png)
-
-### 📊 Analytics
-![Analytics](screenshots/analytics.png)
+![Map View](screenshots/map_view.png)
