@@ -1,23 +1,29 @@
-# Dubai Coffee Finder
+Dubai Coffee Finder
+Overview
+Dubai Coffee Finder is a Streamlit-based web application that helps users discover coffee spots in Dubai using location filtering, nearby recommendations, maps, and analytics.
 
-A Streamlit web application that helps users find coffee spots in Dubai.
+Features
+Find nearby coffee spots
+View coffee locations on map
+Analytics dashboard with graphs
+Leaderboard of coffee spots
+Easy-to-use interface
 
-## Features
-- Search coffee places
-- View coffee spot details
-- Distance calculation
-- Simple user interface
+Technologies Used
+Python
+Streamlit
+Pandas
+NumPy
+Geopy
 
-## Technologies Used
-- Python
-- Streamlit
-- Pandas
-- Geopy
+Project Structure
+Dubai Coffee Finder/
+dubai_web_app.py → Main application
+helper/utils.py → Helper functions
+CSV files → Dataset
+screenshots/ → Application images
+README.md → Project documentation
 
-## Project Structure
-- dubai_web_app.py → Main app
-- helper/utils.py → Helper functions
-- CSV files → Data source
-
-## Run Project
-python -m streamlit run dubai_web_app.py
+How to Run
+Open terminal inside project folder
+pip install -r requirements.txt
