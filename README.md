@@ -31,3 +31,14 @@ README.md → Project documentation
 How to Run
 Open terminal inside project folder
 pip install -r requirements.txt
+
+## 📸 Screenshots
+
+### 🗺️ Map View
+![Map View](screenshots/map.png)
+
+### 🔍 Filters
+![Filters](screenshots/filters.png)
+
+### 📊 Analytics
+![Analytics](screenshots/analytics.png)
