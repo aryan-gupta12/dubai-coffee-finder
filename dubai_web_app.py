@@ -71,25 +71,35 @@ tab1,tab2,tab3 = st.tabs(["🗺️ Nearby Spots","📊 Analytics","🏆 Leaderbo
 
 with tab1:
     st.subheader(f"{len(df)} spot(s) found")
+
     dubai_map = folium.Map(location=user_location, zoom_start=13)
     marker_icon = folium.Icon(color="orange", icon="user")
 
-    st_folium(dubai_map)
-   area_marker = folium.Marker(user_location,
-                               icon=marker_icon,
-                               tooltip=f"Area: {selected_area}")
-   area_marker.add_to(dubai_map)
+    area_marker = folium.Marker(
+        location=user_location,
+        icon=marker_icon,
+        tooltip=f"Area: {selected_area}"
+    )
+    area_marker.add_to(dubai_map)
 
-   for data in df.iterrows():
-    row = data[1]
-    lat = row['lat']
-    lng = row['lng']
-    name = row["name"]
-    spot_type = row["type"]
-    is_open = row["is_open"]
-    color = "green"
-    if is_open == "Closed":
-       color = "red"
+    for index, row in df.iterrows():
+        lat = row['lat']
+        lng = row['lng']
+        name = row["name"]
+        spot_type = row["type"]
+        is_open = row["is_open"]
+
+        color = "green"
+        if is_open == "Closed":
+            color = "red"
+
+        folium.Marker(
+            location=[lat, lng],
+            tooltip=name,
+            icon=folium.Icon(color=color)
+        ).add_to(dubai_map)
+
+    st_folium(dubai_map)"
 
     spot_location = (lat,lng)
     m_icon = folium.Icon(color=color,icon="coffee",prefix="fa")
