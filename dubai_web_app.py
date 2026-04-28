@@ -70,10 +70,11 @@ if spot_name:
 tab1,tab2,tab3 = st.tabs(["🗺️ Nearby Spots","📊 Analytics","🏆 Leaderboard"])
 
 with tab1:
-   st.subheader(f"{len(df)} spot(s) found")
-   dubai_map = folium.Map(location=user_location,zoom_start=13)
-   marker_icon = folium.Icon(color="orange",icon="user")
+    st.subheader(f"{len(df)} spot(s) found")
+    dubai_map = folium.Map(location=user_location, zoom_start=13)
+    marker_icon = folium.Icon(color="orange", icon="user")
 
+    st_folium(dubai_map)
    area_marker = folium.Marker(user_location,
                                icon=marker_icon,
                                tooltip=f"Area: {selected_area}")
