@@ -72,9 +72,11 @@ tab1,tab2,tab3 = st.tabs(["🗺️ Nearby Spots","📊 Analytics","🏆 Leaderbo
 with tab1:
     st.subheader(f"{len(df)} spot(s) found")
 
+    # Create map
     dubai_map = folium.Map(location=user_location, zoom_start=13)
     marker_icon = folium.Icon(color="orange", icon="user")
 
+    # User location marker
     area_marker = folium.Marker(
         location=user_location,
         icon=marker_icon,
@@ -82,6 +84,7 @@ with tab1:
     )
     area_marker.add_to(dubai_map)
 
+    # Coffee shop markers
     for index, row in df.iterrows():
         lat = row['lat']
         lng = row['lng']
@@ -89,49 +92,49 @@ with tab1:
         spot_type = row["type"]
         is_open = row["is_open"]
 
-        color = "green"
-        if is_open == "Closed":
-            color = "red"
+        color = "green" if is_open == "Open" else "red"
 
-        folium.Marker(
+        m_icon = folium.Icon(color=color, icon="coffee", prefix="fa")
+
+        marker = folium.Marker(
             location=[lat, lng],
-            tooltip=name,
-            icon=folium.Icon(color=color)
-        ).add_to(dubai_map)
+            icon=m_icon,
+            tooltip=f"{spot_type}: {name}"
+        )
+        marker.add_to(dubai_map)
 
-    st_folium(dubai_map)"
+    # Render map ONCE
+    st_folium(dubai_map, height=300, use_container_width=True)
 
-    spot_location = (lat,lng)
-    m_icon = folium.Icon(color=color,icon="coffee",prefix="fa")
-    marker = folium.Marker(spot_location,icon=m_icon,tooltip=f"{spot_type}:{name}")
-    marker.add_to(dubai_map)
+    # Cards UI
+    for i in range(0, len(df), 2):
+        small_df = df.iloc[i:i+2]
+        columns = st.columns(2)
 
-   st_folium(dubai_map,height=300,use_container_width=True)
-   for i in range(0,len(df),2):
-      small_df = df.iloc[i:i+2]
-      columns = st.columns(2)
-      for j in range(0,len(small_df)):
-         with columns[j]:
-            with st.container(border=True):
-               row = small_df.iloc[j]
-               spot_type = row["type"]
-               status_icon = "🟢"
-               if row["is_open"] == "Closed":
-                  status_icon = "🔴"
+        for j in range(len(small_df)):
+            with columns[j]:
+                with st.container(border=True):
+                    row = small_df.iloc[j]
 
-               icon = get_spot_icon(spot_type)
-               st.subheader(f'{icon} {row["name"]}')
-               col1,col2 = st.columns(2)
-               col1.markdown(f"**type**: {row['type']}")
-               col2.markdown(f"**Status**: {status_icon} {row['is_open']}")
+                    spot_type = row["type"]
+                    status_icon = "🟢" if row["is_open"] == "Open" else "🔴"
 
-               col1,col2 = st.columns(2)
-               rating = row["rating"]
-               rating_star = "⭐" * int(rating)
-               col1.markdown(f"**Distance**: {row['distance_km']}")
-               col2.markdown(f"**Rating**: {rating_star} {rating}")
+                    icon = get_spot_icon(spot_type)
 
-               st.caption(f"🕐 {row["opening_time"]}: {row["closing_time"]}")
+                    st.subheader(f'{icon} {row["name"]}')
+
+                    col1, col2 = st.columns(2)
+                    col1.markdown(f"**Type**: {row['type']}")
+                    col2.markdown(f"**Status**: {status_icon} {row['is_open']}")
+
+                    col1, col2 = st.columns(2)
+                    rating = row["rating"]
+                    rating_star = "⭐" * int(rating)
+
+                    col1.markdown(f"**Distance**: {row['distance_km']:.2f} km")
+                    col2.markdown(f"**Rating**: {rating_star} {rating}")
+
+                    st.caption(f"🕐 {row['opening_time']} - {row['closing_time']}")
 
 
    # st.dataframe(df)
